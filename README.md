@@ -1,3 +1,3 @@
 # README
 
-simple chat application
+simple chat application with websockets
