@@ -1,0 +1,22 @@
+<div class="private_chat_index_page">
+  <h1>Inbox</h1>
+  <% @private_chats.each do |private_chat| %>
+    <% other_user = private_chat.user1_id == @user.id ? private_chat.user2 : private_chat.user1 %>
+    <%= link_to user_private_chat_path(user_username: @user.username, id: private_chat.id) do %>
+      <div class="private_chat__index__cards">
+        <div class="private_chat__cards__text">
+          <h3><%= other_user.username %></h3>
+          <% last_message = private_chat.messages.last %>
+          <% if last_message %>
+            <p>last message: <%= last_message.content%></p>
+            <p>at: <%= last_message.updated_at.in_time_zone("Asia/Dhaka").strftime("%d/%m/%Y %H:%M:%S") %></p>
+
+          <% end %>
+
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to "Back to Home", root_path %>
+</div>

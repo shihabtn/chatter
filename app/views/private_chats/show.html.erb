@@ -1,0 +1,21 @@
+<div class="container private_chat" data-controller="private-chat-subscription" data-private-chat-subscription-private-chat-id-value="<%= @private_chat.id %>">
+
+  <% user_to_show = @private_chat.user1_id == @user.id ? @private_chat.user2 : @private_chat.user1 %>
+  <h1><%= user_to_show.username %></h1>
+
+
+  <div class="messages" data-private-chat-subscription-target="messages">
+    <% @private_chat.messages.each do |message| %>
+      <%= render "messages/message", message: message %>
+    <% end %>
+  </div>
+
+  <%= simple_form_for [@user, @private_chat, @message],
+                      html: { data: { action: "turbo:submit-end->private-chat-subscription#resetForm" }, class: "d-flex"} do |f| %>
+    <%= f.input :content,
+                label: false,
+                placeholder: "Message to #{user_to_show.username}",
+                wrapper_html: {class: "flex-grow-1 me-2"} %>
+    <%= f.submit "Send", class: "btn btn-primary send__btn" %>
+  <% end %>
+</div>

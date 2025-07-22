@@ -10,31 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_22_045626) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_22_071243) do
   create_table "messages", force: :cascade do |t|
     t.string "content"
     t.integer "private_chat_id", null: false
-    t.integer "profile_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["private_chat_id"], name: "index_messages_on_private_chat_id"
-    t.index ["profile_id"], name: "index_messages_on_profile_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "private_chats", force: :cascade do |t|
-    t.integer "profile1_id", null: false
-    t.integer "profile2_id", null: false
+    t.integer "user1_id", null: false
+    t.integer "user2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile1_id"], name: "index_private_chats_on_profile1_id"
-    t.index ["profile2_id"], name: "index_private_chats_on_profile2_id"
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.string "nickname"
-    t.string "profile_picture"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user1_id"], name: "index_private_chats_on_user1_id"
+    t.index ["user2_id"], name: "index_private_chats_on_user2_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,7 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_22_045626) do
   end
 
   add_foreign_key "messages", "private_chats"
-  add_foreign_key "messages", "profiles"
-  add_foreign_key "private_chats", "profile1s"
-  add_foreign_key "private_chats", "profile2s"
+  add_foreign_key "messages", "users"
+  add_foreign_key "private_chats", "users", column: "user1_id"
+  add_foreign_key "private_chats", "users", column: "user2_id"
 end

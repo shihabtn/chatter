@@ -3,10 +3,15 @@ Rails.application.routes.draw do
 
   # Devise routes for user authentication
   devise_for :users
-  
+
   # User profile routes
-  get 'users/:username', to: 'users#show', as: 'user_profile'
-  
+  resources :users, param: :username, only: [:show, :index] do
+    post "message", on: :member
+    resources :private_chats, only: [:index, :show] do
+      resources :messages, only: [:create]
+    end
+  end
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   # get "up" => "rails/health#show", as: :rails_health_check
