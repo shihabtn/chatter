@@ -1,0 +1,19 @@
+<h1><%= @user.username %>'s Profile</h1>
+
+<div class="profile-info">
+  <% if @user.first_name.present? || @user.last_name.present? %>
+    <p><strong>Name:</strong> <%= [@user.first_name, @user.last_name].compact.join(' ') %></p>
+  <% end %>
+  
+  <p><strong>Email:</strong> <%= @user.email %></p>
+  
+  <% if @user.bio.present? %>
+    <p><strong>Bio:</strong> <%= @user.bio %></p>
+  <% end %>
+</div>
+
+<% if current_user == @user %>
+  <p><%= link_to "Edit Profile", edit_user_registration_path %></p>
+<% end %>
+
+<p><%= link_to "Back to Home", root_path %></p>
