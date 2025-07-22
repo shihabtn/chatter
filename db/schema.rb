@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_05_01_000001) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_22_045626) do
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "private_chat_id", null: false
+    t.integer "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["private_chat_id"], name: "index_messages_on_private_chat_id"
+    t.index ["profile_id"], name: "index_messages_on_profile_id"
+  end
+
+  create_table "private_chats", force: :cascade do |t|
+    t.integer "profile1_id", null: false
+    t.integer "profile2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile1_id"], name: "index_private_chats_on_profile1_id"
+    t.index ["profile2_id"], name: "index_private_chats_on_profile2_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "nickname"
+    t.string "profile_picture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -27,4 +53,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_05_01_000001) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
+
+  add_foreign_key "messages", "private_chats"
+  add_foreign_key "messages", "profiles"
+  add_foreign_key "private_chats", "profile1s"
+  add_foreign_key "private_chats", "profile2s"
 end
