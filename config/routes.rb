@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   # User profile routes
-  resources :users, param: :username, only: [:show, :index] do
+  resources :users, param: :username, only: [ :show, :index ] do
     post "message", on: :member
-    resources :private_chats, only: [:index, :show] do
-      resources :messages, only: [:create]
+    resources :private_chats, only: [ :index, :show ] do
+      resources :messages, only: [ :create ]
     end
   end
 

@@ -1,6 +1,6 @@
 class PrivateChatsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_private_chat, only: [:show]
+  before_action :find_private_chat, only: [ :show ]
 
   def index
     if current_user
@@ -26,5 +26,4 @@ class PrivateChatsController < ApplicationController
   def private_chat_params
     params.require(:private_chat).permit(:user1_id, :user2_id)
   end
-
 end
