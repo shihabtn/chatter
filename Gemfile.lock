@@ -229,7 +229,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.16)
+    rack (3.2.0)
     rack-proxy (0.7.7)
       rack
     rack-session (2.1.1)
@@ -325,7 +325,7 @@ GEM
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    solid_cable (3.0.11)
+    solid_cable (3.0.12)
       actioncable (>= 7.2)
       activejob (>= 7.2)
       activerecord (>= 7.2)
